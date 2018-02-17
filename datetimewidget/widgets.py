@@ -7,7 +7,8 @@ import uuid
 
 from django.forms import forms, widgets
 from django.forms.widgets import MultiWidget, DateTimeInput, DateInput, TimeInput
-from django.utils.formats import get_format, get_language
+from django.utils.formats import get_format
+from django.utils.translation import get_language
 from django.utils.safestring import mark_safe
 from django.utils.six import string_types
 
@@ -23,7 +24,7 @@ supported_languages = set([
     'bg',
     'ca', 'cs',
     'da', 'de',
-    'ee', 'el', 'es','eu',
+    'ee', 'el', 'es',
     'fi', 'fr',
     'he', 'hr', 'hu',
     'id', 'is', 'it',
@@ -42,6 +43,8 @@ supported_languages = set([
 
 
 def get_supported_language(language_country_code):
+
+
     """Helps us get from django's 'language-countryCode' to the datepicker's 'language' if we
     possibly can.
 
@@ -112,8 +115,8 @@ BOOTSTRAP_INPUT_TEMPLATE = {
     3: """
        <div id="%(id)s" class="input-group date">
            %(rendered_widget)s
-           %(clear_button)s
-           <span class="input-group-addon"><span class="glyphicon %(glyphicon)s"></span></span>
+
+           <span class="input-group-addon add-on"><i data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"></i></span>
        </div>
        <script type="text/javascript">
            $("#%(id)s").datetimepicker({%(options)s}).find('input').addClass("form-control");
@@ -199,10 +202,7 @@ class PickerWidgetMixin(object):
             self.format = get_format(self.format_name)[0]
 
             # Convert Python format specifier to Javascript format specifier
-            self.options['format'] = toJavascript_re.sub(
-                lambda x: dateConversiontoJavascript[x.group()],
-                self.format
-                )
+
 
             # Set the local language
             self.options['language'] = get_supported_language(get_language())
@@ -282,7 +282,7 @@ class DateTimeWidget(PickerWidgetMixin, DateTimeInput):
             options = {}
 
         # Set the default options to show only the datepicker object
-        options['format'] = options.get('format', 'dd/mm/yyyy hh:ii')
+        options['format'] = options.get('format', 'dd/MM/yyyy hh:ii')
 
         super(DateTimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
 
@@ -304,7 +304,7 @@ class DateWidget(PickerWidgetMixin, DateInput):
         # Set the default options to show only the datepicker object
         options['startView'] = options.get('startView', 2)
         options['minView'] = options.get('minView', 2)
-        options['format'] = options.get('format', 'dd/mm/yyyy')
+
 
         super(DateWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
 
