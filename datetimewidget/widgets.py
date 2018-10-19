@@ -276,7 +276,7 @@ class DateTimeWidget(PickerWidgetMixin, DateTimeInput):
     format_name = 'DATETIME_INPUT_FORMATS'
     glyphicon = 'glyphicon-th'
 
-    def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
+    def __init__(self, attrs=None, format=None, options=None, usel10n=None, bootstrap_version=None):
 
         if options is None:
             options = {}
@@ -285,6 +285,8 @@ class DateTimeWidget(PickerWidgetMixin, DateTimeInput):
         options['format'] = options.get('format', 'dd/MM/yyyy hh:ii')
 
         super(DateTimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
+
+        self.format = format or None
 
 
 class DateWidget(PickerWidgetMixin, DateInput):
@@ -296,7 +298,7 @@ class DateWidget(PickerWidgetMixin, DateInput):
     format_name = 'DATE_INPUT_FORMATS'
     glyphicon = 'glyphicon-calendar'
 
-    def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
+    def __init__(self, attrs=None, format=None, options=None, usel10n=None, bootstrap_version=None):
 
         if options is None:
             options = {}
@@ -308,6 +310,8 @@ class DateWidget(PickerWidgetMixin, DateInput):
 
         super(DateWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
 
+        self.format = format or None
+
 
 class TimeWidget(PickerWidgetMixin, TimeInput):
     """
@@ -318,7 +322,7 @@ class TimeWidget(PickerWidgetMixin, TimeInput):
     format_name = 'TIME_INPUT_FORMATS'
     glyphicon = 'glyphicon-time'
 
-    def __init__(self, attrs=None, options=None, usel10n=None, bootstrap_version=None):
+    def __init__(self, attrs=None, format=None, options=None, usel10n=None, bootstrap_version=None):
 
         if options is None:
             options = {}
@@ -330,4 +334,8 @@ class TimeWidget(PickerWidgetMixin, TimeInput):
         options['format'] = options.get('format', 'hh:ii')
 
         super(TimeWidget, self).__init__(attrs, options, usel10n, bootstrap_version)
+
+        self.format = format or None
+
+
 
